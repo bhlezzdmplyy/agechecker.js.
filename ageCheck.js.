@@ -1,0 +1,34 @@
+const readline = require('readline');
+
+// Create interface for input
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+// Strategy pattern to handle different age classifications
+const ageStrategies = {
+    child: (age) => age < 13,
+    teenager: (age) => age >= 13 && age <= 19,
+    adult: (age) => age >= 20
+};
+
+// Function to get age category based on input age
+function getAgeCategory(age) {
+    if (ageStrategies.child(age)) {
+        return "You are a child.";
+    } else if (ageStrategies.teenager(age)) {
+        return "You are a teenager.";
+    } else if (ageStrategies.adult(age)) {
+        return "You are an adult.";
+    } else {
+        return "Invalid age entered.";
+    }
+}
+
+// Prompt the user for their age
+rl.question("Enter your age: ", (input) => {
+    const age = Number(input);
+    console.log(getAgeCategory(age));
+    rl.close();
+});
